@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+import NotPage from './NotPage/NotPage';
 
 const Navigation = lazy(
   () => import('./Navigation/Navigation') /*webpackChunkName:'Home'*/
@@ -30,7 +31,7 @@ export const App = () => {
               <Route path="reviews" element={<Reviews />} />
             </Route>
           </Route>
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotPage />} />
         </Routes>
       </Suspense>
     </div>

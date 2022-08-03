@@ -6,6 +6,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Suspense } from 'react';
 
 import { fetchMovieID } from 'Api/Api';
 
@@ -26,19 +27,31 @@ function MovieDetails() {
     <>
       <Link to={location?.state?.from ?? '/'}>go back</Link>
       <section className="move-detail">
-        <div>
-          <img src={`${URL_Image}${poster_path}`} alt="" />
-        </div>
-        <div>
-          <h2>{title}</h2>
-          <h3>Описание фильма </h3>
-          <p>{overview}</p>
-          <h4>Жанры</h4>
-        </div>
+        {detailMovie.length !== 0 ? (
+          <>
+            <div>
+              <img src={`${URL_Image}${poster_path}`} alt="" />
+            </div>
+            <div>
+              <h2>{title}</h2>
+              <h3>Описание фильма </h3>
+              <p>{overview}</p>
+              <h4>Жанры</h4>
+            </div>
+          </>
+        ) : (
+          <p>НЕ ЧЕГО НЕТ </p>
+        )}
       </section>
-      <NavLink to={`cast`}>cast</NavLink>
-      <NavLink to={`reviews`}>reviews</NavLink>
-      <Outlet />
+      <NavLink to={`cast`} state={{ from: location?.state?.from }}>
+        cast
+      </NavLink>
+      <NavLink to={`reviews`} state={{ from: location?.state?.from }}>
+        reviews
+      </NavLink>
+      <Suspense fallback={<p>laoding</p>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }

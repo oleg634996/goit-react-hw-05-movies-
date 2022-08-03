@@ -24,5 +24,11 @@ function MoviesList({ film }) {
 export default MoviesList;
 
 MoviesList.propTypes = {
-  films: PropTypes.array,
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      poster_path: PropTypes.string.isRequired,
+    })
+  ),
 };

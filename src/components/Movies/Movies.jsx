@@ -20,7 +20,6 @@ function Movies() {
 
     const value = event.target.elements.search.value;
     setSearchParams({ search: value });
-    event.currentTarget.reset();
   };
 
   return (
