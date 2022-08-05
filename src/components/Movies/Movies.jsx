@@ -7,6 +7,7 @@ function Movies() {
   const [searchMovies, setSearchMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search');
+  const [value, setValue] = useState(search ?? '');
 
   useEffect(() => {
     if (search === null || '') {
@@ -18,14 +19,19 @@ function Movies() {
   const handelSubmit = event => {
     event.preventDefault();
 
-    const value = event.target.elements.search.value;
+    // const value = event.target.elements.search.value;
     setSearchParams({ search: value });
   };
 
   return (
     <div>
       <form onSubmit={handelSubmit}>
-        <input type="text" name="search" />
+        <input
+          type="text"
+          name="search"
+          value={value}
+          onChange={e => setValue(e.target.value)}
+        />
         <button type="submit">search</button>
       </form>
       <MoviesList film={searchMovies} />
